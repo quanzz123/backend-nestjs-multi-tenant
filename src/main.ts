@@ -16,9 +16,10 @@ async function bootstrap() {
 
   // Áp dụng TenancyMiddleware toàn cục cho tất cả request
   const tenancyMiddleware = app.get(TenancyMiddleware);
-  app.use((req: any, res: any, next: any) => {
-    tenancyMiddleware.use(req, res, next).catch(next);
+  app.use((req: any, res: any, next: (err?: any) => void) => {
+    void tenancyMiddleware.use(req, res, next).catch(next);
   });
+
 
   const port = process.env.PORT ?? 3000;
   await app.listen(port);

@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware, NotFoundException, ForbiddenException, Inject } from '@nestjs/common';
-import type { FastifyRequest, FastifyReply } from 'fastify';
 import { eq, or } from 'drizzle-orm';
+
 import { DRIZZLE_DB } from '../../database/database.constants.js';
 import type { DrizzleDb } from '../../database/database.provider.js';
 import { tenants } from '../../database/schema/public/tenants.schema.js';
@@ -10,7 +10,7 @@ import { TenancyContext, TenantContextData } from './tenancy.context.js';
 export class TenancyMiddleware implements NestMiddleware {
   constructor(@Inject(DRIZZLE_DB) private readonly db: DrizzleDb) { }
 
-  async use(req: FastifyRequest['raw'] | any, res: FastifyReply['raw'] | any, next: () => void) {
+  async use(req: any, res: any, next: (error?: any) => void) {
     const url = req.url || '';
 
     // Bỏ qua kiểm tra tenant với các route nền tảng (Platform / SuperAdmin) hoặc route gốc

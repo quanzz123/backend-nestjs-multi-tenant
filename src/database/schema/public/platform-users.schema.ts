@@ -41,3 +41,5 @@ export const platformUsers = pgTable(
 
 export type PlatformUser = typeof platformUsers.$inferSelect;
 export type NewPlatformUser = typeof platformUsers.$inferInsert;
+export type PlatformUserRole = 'SUPER_ADMIN' | 'SUPPORT' | 'FINANCE' | 'OPERATOR';
+export type PlatformUserStatus = 'ACTIVE' | 'INACTIVE' | 'SUSPENDED';

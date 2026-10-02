@@ -1,6 +1,10 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { TenancyContext, TenantContextData } from '../../core/tenancy/tenancy.context.js';
 
+export type { TenantContextData };
+export type TenantData = TenantContextData;
+
+
 /**
  * Decorator lấy thông tin Tenant hiện tại trong Controller:
  * Ví dụ:
