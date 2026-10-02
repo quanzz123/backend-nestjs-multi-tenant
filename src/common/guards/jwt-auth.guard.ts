@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Reflector } from '@nestjs/core';
-import { IS_PUBLIC_KEY } from '../decorators/public.decorator.js';
+import { isRoutePublic } from '../utils/is-public.util.js';
 import { TenancyContext } from '../../core/tenancy/tenancy.context.js';
 import type { AuthenticatedUser } from '../decorators/current-user.decorator.js';
 
@@ -17,17 +17,13 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
   }
 
   override canActivate(context: ExecutionContext) {
-    const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
-      context.getHandler(),
-      context.getClass(),
-    ]);
-
-    if (isPublic) {
+    if (isRoutePublic(this.reflector, context)) {
       return true;
     }
 
     return super.canActivate(context);
   }
+
 
   override handleRequest<TUser = AuthenticatedUser>(
     err: any,

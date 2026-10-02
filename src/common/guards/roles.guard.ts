@@ -1,7 +1,7 @@
 import { Injectable, CanActivate, ExecutionContext, ForbiddenException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { ROLES_KEY, type AppRole } from '../decorators/roles.decorator.js';
-import { IS_PUBLIC_KEY } from '../decorators/public.decorator.js';
+import { isRoutePublic } from '../utils/is-public.util.js';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -9,14 +9,10 @@ export class RolesGuard implements CanActivate {
 
   canActivate(context: ExecutionContext): boolean {
     // 1. Kiểm tra nếu endpoint được đánh dấu là @Public() thì cho qua
-    const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
-      context.getHandler(), // kiểm tra ở endpoint trước
-      context.getClass(), // kiểm tra ở Controller sau
-    ]);
-
-    if (isPublic) {
+    if (isRoutePublic(this.reflector, context)) {
       return true;
     }
+
 
     // 2. Đọc các role yêu cầu từ decorator @Roles(...)
     const requiredRoles = this.reflector.getAllAndOverride<AppRole[]>(ROLES_KEY, [
