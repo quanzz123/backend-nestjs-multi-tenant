@@ -1,0 +1,12 @@
+import { registerAs } from '@nestjs/config';
+
+
+export const databaseConfig = registerAs('database', () => ({
+    host: process.env.DB_HOST || 'localhost',
+    port: parseInt(process.env.DB_PORT || '5432', 10),
+    user: process.env.DB_USER || 'postgres',
+    password: process.env.DB_PASSWORD || 'postgres',
+    database: process.env.DB_NAME || 'multitenant_db',
+    maxConnections: parseInt(process.env.DB_MAX_CONNECTIONS || '20', 10),
+    ssl: process.env.DB_SSL === 'true',
+}));

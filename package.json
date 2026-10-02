@@ -19,7 +19,11 @@
     "test:watch": "vitest",
     "test:cov": "vitest run --coverage",
     "test:debug": "vitest --inspect-brk --no-file-parallelism",
-    "test:e2e": "vitest run --config ./vitest.config.e2e.ts"
+    "test:e2e": "vitest run --config ./vitest.config.e2e.ts",
+    "db:generate:public": "drizzle-kit generate --config=drizzle/drizzle.public.config.ts",
+    "db:migrate:public": "drizzle-kit migrate --config=drizzle/drizzle.public.config.ts",
+    "db:generate:tenant": "drizzle-kit generate --config=drizzle/drizzle.tenant.config.ts",
+    "db:studio": "drizzle-kit studio --config=drizzle/drizzle.public.config.ts"
   },
   "dependencies": {
     "@fastify/sensible": "^6.0.6",
