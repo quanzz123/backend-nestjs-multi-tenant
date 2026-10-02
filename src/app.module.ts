@@ -1,21 +1,17 @@
 import { Module } from '@nestjs/common';
-import { createObserveModule } from '@nestjs/observe';
-import { AppController } from './app.controller.js';
-import { AppService } from './app.service.js';
-
-export const { ObserveModule, ObserveInstrument } = createObserveModule();
+import { ConfigModule } from '@nestjs/config';
+import { databaseConfig } from './config/database.config.js';
+import { DatabaseModule } from './database/database.module.js';
+import { AdminTenantsModule } from './modules/platform/admin-tenants/admin-tenants.module.js';
 
 @Module({
   imports: [
-    // Distributed tracing, auto-correlated logs, request/job metrics, error
-    // telemetry, alarms, and more — out of the box. Sign up at https://observe.nestjs.com
-    ObserveModule.forRoot({
-      appKey: 'YOUR_APP_KEY',
-      appSecret: 'YOUR_APP_SECRET',
-      serviceId: 'nestjs-multitenant-pg',
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [databaseConfig],
     }),
+    DatabaseModule,
+    AdminTenantsModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

@@ -1,5 +1,5 @@
 {
-  "id": "1200cbc2-7453-4ff5-a9fe-d5eb95662c18",
+  "id": "c020ebcb-2d6c-42d4-bba0-7061ac768421",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -47,16 +47,14 @@
         },
         "role": {
           "name": "role",
-          "type": "user_role",
-          "typeSchema": "public",
+          "type": "varchar(50)",
           "primaryKey": false,
           "notNull": true,
           "default": "'MEMBER'"
         },
         "status": {
           "name": "status",
-          "type": "user_status",
-          "typeSchema": "public",
+          "type": "varchar(50)",
           "primaryKey": false,
           "notNull": true,
           "default": "'ACTIVE'"
@@ -202,8 +200,7 @@
         },
         "status": {
           "name": "status",
-          "type": "product_status",
-          "typeSchema": "public",
+          "type": "varchar(50)",
           "primaryKey": false,
           "notNull": true,
           "default": "'ACTIVE'"
@@ -300,37 +297,7 @@
       "isRLSEnabled": false
     }
   },
-  "enums": {
-    "public.user_role": {
-      "name": "user_role",
-      "schema": "public",
-      "values": [
-        "OWNER",
-        "ADMIN",
-        "MANAGER",
-        "MEMBER"
-      ]
-    },
-    "public.user_status": {
-      "name": "user_status",
-      "schema": "public",
-      "values": [
-        "ACTIVE",
-        "INVITED",
-        "INACTIVE",
-        "BLOCKED"
-      ]
-    },
-    "public.product_status": {
-      "name": "product_status",
-      "schema": "public",
-      "values": [
-        "DRAFT",
-        "ACTIVE",
-        "ARCHIVED"
-      ]
-    }
-  },
+  "enums": {},
   "schemas": {},
   "sequences": {},
   "roles": {},

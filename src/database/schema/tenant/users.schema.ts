@@ -1,20 +1,7 @@
-import { pgTable, uuid, varchar, timestamp, pgEnum, index } from 'drizzle-orm/pg-core';
+import { pgTable, uuid, varchar, timestamp, index } from 'drizzle-orm/pg-core';
 
-// Enum phân quyền trong nội bộ tenant
-export const userRoleEnum = pgEnum('user_role', [
-  'OWNER',   // Chủ sở hữu tenant
-  'ADMIN',   // Quản trị viên
-  'MANAGER', // Quản lý
-  'MEMBER',  // Nhân viên
-]);
-
-// Enum trạng thái tài khoản
-export const userStatusEnum = pgEnum('user_status', [
-  'ACTIVE',   // Đang hoạt động
-  'INVITED',  // Đã mời, chưa kích hoạt
-  'INACTIVE', // Tạm ngưng
-  'BLOCKED',  // Bị khóa
-]);
+export type UserRole = 'OWNER' | 'ADMIN' | 'MANAGER' | 'MEMBER';
+export type UserStatus = 'ACTIVE' | 'INVITED' | 'INACTIVE' | 'BLOCKED';
 
 export const users = pgTable(
   'users',
@@ -25,8 +12,8 @@ export const users = pgTable(
     fullName: varchar('full_name', { length: 255 }).notNull(),
     phone: varchar('phone', { length: 30 }),
     avatarUrl: varchar('avatar_url', { length: 500 }),
-    role: userRoleEnum('role').default('MEMBER').notNull(),
-    status: userStatusEnum('status').default('ACTIVE').notNull(),
+    role: varchar('role', { length: 50 }).$type<UserRole>().default('MEMBER').notNull(),
+    status: varchar('status', { length: 50 }).$type<UserStatus>().default('ACTIVE').notNull(),
     lastLoginAt: timestamp('last_login_at', { withTimezone: true, mode: 'date' }),
     createdAt: timestamp('created_at', { withTimezone: true, mode: 'date' }).defaultNow().notNull(),
     updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'date' })

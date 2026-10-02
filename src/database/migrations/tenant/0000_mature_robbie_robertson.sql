@@ -1,6 +1,3 @@
-CREATE TYPE "public"."user_role" AS ENUM('OWNER', 'ADMIN', 'MANAGER', 'MEMBER');--> statement-breakpoint
-CREATE TYPE "public"."user_status" AS ENUM('ACTIVE', 'INVITED', 'INACTIVE', 'BLOCKED');--> statement-breakpoint
-CREATE TYPE "public"."product_status" AS ENUM('DRAFT', 'ACTIVE', 'ARCHIVED');--> statement-breakpoint
 CREATE TABLE "users" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"email" varchar(255) NOT NULL,
@@ -8,8 +5,8 @@ CREATE TABLE "users" (
 	"full_name" varchar(255) NOT NULL,
 	"phone" varchar(30),
 	"avatar_url" varchar(500),
-	"role" "user_role" DEFAULT 'MEMBER' NOT NULL,
-	"status" "user_status" DEFAULT 'ACTIVE' NOT NULL,
+	"role" varchar(50) DEFAULT 'MEMBER' NOT NULL,
+	"status" varchar(50) DEFAULT 'ACTIVE' NOT NULL,
 	"last_login_at" timestamp with time zone,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
 	"updated_at" timestamp with time zone DEFAULT now() NOT NULL,
@@ -25,7 +22,7 @@ CREATE TABLE "products" (
 	"price" numeric(12, 2) DEFAULT '0' NOT NULL,
 	"cost_price" numeric(12, 2) DEFAULT '0',
 	"stock_quantity" integer DEFAULT 0 NOT NULL,
-	"status" "product_status" DEFAULT 'ACTIVE' NOT NULL,
+	"status" varchar(50) DEFAULT 'ACTIVE' NOT NULL,
 	"images" jsonb DEFAULT '[]'::jsonb NOT NULL,
 	"attributes" jsonb DEFAULT '{}'::jsonb NOT NULL,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
