@@ -2,6 +2,7 @@ import { Injectable, CanActivate, ExecutionContext, ForbiddenException } from '@
 import { Reflector } from '@nestjs/core';
 import { isRoutePublic } from '../utils/is-public.util.js';
 import type { AuthenticatedUser } from '../decorators/current-user.decorator.js';
+import { AUTH_USER_TYPE } from '../constants/auth.constant.js';
 
 @Injectable()
 export class PlatformGuard implements CanActivate {
@@ -12,7 +13,6 @@ export class PlatformGuard implements CanActivate {
       return true;
     }
 
-
     const request = context.switchToHttp().getRequest();
     const user = request.user as AuthenticatedUser | undefined;
 
@@ -20,7 +20,7 @@ export class PlatformGuard implements CanActivate {
       throw new ForbiddenException('Yêu cầu xác thực tài khoản Platform');
     }
 
-    if (user.type !== 'PLATFORM') {
+    if (user.type !== AUTH_USER_TYPE.PLATFORM) {
       throw new ForbiddenException('Chỉ quản trị viên nền tảng (Platform Admin) mới có quyền truy cập khu vực này');
     }
 

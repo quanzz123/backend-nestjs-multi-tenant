@@ -9,6 +9,7 @@ import { Reflector } from '@nestjs/core';
 import { isRoutePublic } from '../utils/is-public.util.js';
 import { TenancyContext } from '../../core/tenancy/tenancy.context.js';
 import type { AuthenticatedUser } from '../decorators/current-user.decorator.js';
+import { AUTH_USER_TYPE } from '../constants/auth.constant.js';
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
@@ -38,7 +39,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     const authUser = user as AuthenticatedUser;
 
     // 1. Nếu là User của Tenant: BẮT BUỘC phải khớp với Tenant hiện tại trong Context
-    if (authUser.type === 'TENANT') {
+    if (authUser.type === AUTH_USER_TYPE.TENANT) {
       const currentTenant = TenancyContext.getTenant();
 
       if (!currentTenant) {

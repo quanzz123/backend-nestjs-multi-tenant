@@ -1,8 +1,9 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import type { UserRole } from '../../database/schema/tenant/users.schema.js';
 import type { PlatformUserRole } from '../../database/schema/public/platform-users.schema.js';
+import { AUTH_USER_TYPE, type AuthUserType } from '../constants/auth.constant.js';
 
-export type AuthUserType = 'PLATFORM' | 'TENANT';
+export { AUTH_USER_TYPE, type AuthUserType };
 
 
 export interface AuthenticatedUser {

@@ -9,7 +9,7 @@ import { PlatformGuard } from '../../../common/guards/platform.guard.js';
 @Controller('api/platform/auth')
 @UseGuards(JwtAuthGuard, PlatformGuard)
 export class PlatformAuthController {
-  constructor(private readonly platformAuthService: PlatformAuthService) {}
+  constructor(private readonly platformAuthService: PlatformAuthService) { }
 
   @Public()
   @Post('login')

@@ -10,6 +10,7 @@ import bcrypt from 'bcrypt';
 import { PlatformUsersRepository } from './platform-users.repository.js';
 import type { JwtPayload } from '../jwt.strategy.js';
 import { PlatformLoginDto } from './dto/platform-login.dto.js';
+import { AUTH_USER_TYPE } from '../../../common/constants/auth.constant.js';
 
 @Injectable()
 export class PlatformAuthService implements OnModuleInit {
@@ -78,7 +79,7 @@ export class PlatformAuthService implements OnModuleInit {
       email: admin.email,
       fullName: admin.fullName,
       role: admin.role,
-      type: 'PLATFORM',
+      type: AUTH_USER_TYPE.PLATFORM,
     };
 
     const accessToken = await this.jwtService.signAsync(payload);
