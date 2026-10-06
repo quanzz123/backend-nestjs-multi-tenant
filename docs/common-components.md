@@ -149,6 +149,20 @@ Chịu trách nhiệm bảo vệ an toàn cho các API endpoint.
 
 ---
 
+### 3.6. Constants (`src/common/constants`)
+
+#### [`AUTH_USER_TYPE`](file:///z:/Workspace2026/backend-nestjs-multi-tenant/src/common/constants/auth.constant.ts)
+- Định nghĩa tập hợp các hằng số định danh loại tài khoản trong hệ thống để loại bỏ hoàn toàn magic strings (`'PLATFORM'`, `'TENANT'`).
+- Được dùng xuyên suốt trong JWT Payload, Authentication Services và Guards (`PlatformGuard`, `JwtAuthGuard`).
+  ```typescript
+  export const AUTH_USER_TYPE = {
+    PLATFORM: 'PLATFORM', // Quản trị viên hệ thống nền tảng
+    TENANT: 'TENANT',     // Người dùng / Quản trị viên thuộc doanh nghiệp
+  } as const;
+  ```
+
+---
+
 ## 4. Bảng Tra Cứu Nhanh (Cheatsheet Khi Viết Code)
 
 ### Kịch bản 1: Viết API trong Tenant Controller (Ví dụ: Sản phẩm, Đơn hàng)
